@@ -9,8 +9,8 @@
       <input type="text" class="col-sm-6 form-control" v-model="telephone">
     </div>
     <div class="row justify-content-md-center padding-tb-1">
-      <input type="text" class="col-sm-4 form-control" v-model="vercode">
-      <button v-on:click="getCode()" class="col-sm-5 btn btn-info">发送验证码{{count}}</button>
+      <input type="text" class="col-sm-4 form-control" v-model="vercode" style="margin-right: 1em">
+      <button v-on:click="getCode()" class="pull-right col-sm-4 btn btn-info">发送验证码{{count}}</button>
     </div>
     <div class="row justify-content-md-center padding-tb-1">
       <button v-on:click="res()" class="col-sm-2 btn btn-info">提交</button>
@@ -87,6 +87,5 @@
 </script>
 
 <style scoped>
-  .container{margin-top: -2em;}
 
 </style>

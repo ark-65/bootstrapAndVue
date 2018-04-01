@@ -4,14 +4,19 @@
       <img src="../assets/logo.png"/>
     </div>
     <div class="col-md-9 ml-md-auto">
-      <h1></h1>
+      <h1>{{msg}}</h1>
     </div>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'Head'
+    name: 'Head',
+    data () {
+      return {
+        msg: '北京农合金融服务'
+      }
+    }
   }
 </script>
 
