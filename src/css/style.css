@@ -1,3 +1,5 @@
-.center-vertical {position:relative;top:50%;transform:translateY(-50%)}
+.center-vertical {position:relative;top:40%;transform:translateY(-50%)}
 .padding-tb-1{padding:1em 0;}
+.padding-1{padding:1em }
+.width-100{width:100%;}
 html,body{font-size: 2em}

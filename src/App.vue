@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <!--<Head />-->
+    <Head />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-// import Head from './layouts/Head'
+import Head from './layouts/Head'
 
 export default {
-  name: 'app'
-  // components: {Head}
+  name: 'app',
+  components: {Head}
 }
 </script>
 
