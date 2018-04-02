@@ -4,7 +4,7 @@
       <img src="../assets/logo.png"/>
     </div>
     <div class="col-md-9 ml-md-auto">
-      <h1>{{msg}}</h1>
+      <h3>{{msg}}</h3>
     </div>
   </div>
 </template>
@@ -21,13 +21,10 @@
 </script>
 
 <style scoped>
-  img{
-    width: 80%;}
-  h1{
-    line-height: 120px;
-    font-size: 50px;
-  }
   .row{
     border-bottom: 1px solid #000;
+  }
+  img{
+    width: 40px;
   }
 </style>

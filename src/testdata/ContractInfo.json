@@ -1,9 +1,22 @@
 {
   "agreement":
     [
-      "啦啦合作社协议",
-      "略略合作社协议",
-      "嘎嘎合作社协议",
-      "双击666合作社协议"
+      {
+        "href": "javascript:void(0)",
+        "name":  "啦啦合作社协议"
+
+      },{
+        "href": "javascript:void(0)",
+        "name":  "略略合作社协议"
+
+      },{
+        "href": "javascript:void(0)",
+        "name":  "嘎嘎合作社协议"
+
+      },{
+        "href": "javascript:void(0)",
+        "name":  "双击666合作社协议"
+
+      }
     ]
 }

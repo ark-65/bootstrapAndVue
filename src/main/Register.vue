@@ -1,21 +1,24 @@
-<template xmlns:v-on="http://www.w3.org/1999/xhtml">
-  <div class="container center-vertical">
-    <div class="row justify-content-md-center padding-tb-1">
-      <label class="col-sm-3">用户名：</label>
-      <input type="text" class="col-sm-6 form-control" v-model="username">
-    </div>
-    <div class="row justify-content-md-center padding-tb-1" >
-      <label class="col-sm-3">手机号：</label>
-      <input type="text" class="col-sm-6 form-control" v-model="telephone">
-    </div>
-    <div class="row justify-content-md-center padding-tb-1">
-      <input type="text" class="col-sm-4 form-control" v-model="vercode" style="margin-right: 1em">
-      <button v-on:click="getCode()" class="pull-right col-sm-4 btn btn-info">发送验证码{{count}}</button>
-    </div>
-    <div class="row justify-content-md-center padding-tb-1">
-      <button v-on:click="res()" class="col-sm-2 btn btn-info">提交</button>
-    </div>
-  </div>
+<template>
+   <div class="container">
+     <div class="row justify-content-md-center padding-tb-1">
+       <label class="col-sm-3 text-left">用户名：</label>
+       <input type="text" class="col-sm-6 form-control inp" v-model="username">
+     </div>
+     <div class="row justify-content-md-center padding-tb-1" >
+       <label class="col-sm-3 text-left">手机号：</label>
+       <input type="text" class="col-sm-6 form-control inp" v-model="telephone">
+     </div>
+     <div class="row justify-content-md-center padding-tb-1">
+       <label class="col-sm-3 text-left">验证码：</label>
+       <input type="text" class="col-sm-1 form-control inp" v-model="vercode">
+     </div>
+     <div class="row padding-tb-1">
+       <button @click="getCode()" @tap="getCode()" class="pull-right col-sm-4 btn btn-info inp">发送验证码{{count}}</button>
+     </div>
+     <div class="row justify-content-md-center padding-tb-1">
+       <button @click="res()" @tap="res()" class="col-sm-2 btn btn-info inp">提交</button>
+     </div>
+   </div>
 </template>
 
 <script>
@@ -34,7 +37,7 @@
       }
     },
     methods: {
-      getCode: function () {
+      getCode () {
         const phoneRex = /^1[345789][0-9]{9}/
         if (this.username === '') {
           alert('请输入用户名')
@@ -49,9 +52,10 @@
             this.$http.get('http://localhost:3000/getjson/test')
               .then((res) => {
                 this.code = res.data.data.code
-                alert('已发送验证码')
+                this.$alert('已发送验证码')
               }).catch((err) => {
-                alert('信息发送失败' + err)
+                this.$alert('信息发送失败' + err)
+                this.count = 0
               })
           }
           this.show = false
@@ -70,16 +74,16 @@
           }
         }
       },
-      res: function () {
-        if (this.vercode === this.code) {
+      res () {
+        if (this.vercode === this.code && this.vercode !== '') {
           this.$http.get('http://localhost:3000/getjson/login')
             .then((res) => {
               this.$router.push(res.data.data.path)
             }).catch((err) => {
-              alert('提交失败，请检查网络' + err)
+              this.$alert('提交失败，请检查网络' + err)
             })
         } else {
-          alert('验证码错误')
+          this.$alert('验证码错误')
         }
       }
     }

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Register from '@/main/Register'
 import TackList from '@/main/TackList'
+import ContractInfo from '@/main/ContractInfo'
 Vue.use(Router)
 
 export default new Router({
@@ -21,6 +22,14 @@ export default new Router({
         title: '任务列表'
       },
       component: TackList
+    },
+    {
+      path: '/ContractInfo',
+      name: 'ContractInfo',
+      meta: {
+        title: '合同详情'
+      },
+      component: ContractInfo
     }
   ]
 })

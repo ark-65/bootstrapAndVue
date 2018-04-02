@@ -1,5 +1,5 @@
 <template>
-  <div class="row padding-1 ">
+  <div class="row padding-l-1 padding-t-1">
     <div class="page-header  width-100">
       <h3 class="text-center">
         任务列表
@@ -16,7 +16,7 @@
       </tr>
       </thead>
       <tbody>
-        <tr v-for="(item) in items" :data-id='item.id' @click="show(item.id)"  >
+        <tr v-for="(item) in items" :data-id='item.id' @click="show(item.id)" @tap="show(item.id)"   >
           <td name="id" hidden >{{item.id}}</td>
           <td>{{item.progress}}</td>
           <td>{{item.ndoe}}</td>
@@ -53,17 +53,26 @@ export default {
         })
     },
     show (index) {
-      this.$http.get()
+      this.$router.push({
+        path: '/ContractInfo',
+        name: 'ContractInfo',
+        params: {
+          'id': index
+        }
+      })
     }
   }
 }
 </script>
 
 <style scoped>
-.container{
-  margin-top: 2em;
-}
-table{
-  font-size: 1em;
-}
+  table{
+    font-size: .5em;
+  }
+  .table th,table td {
+    padding: .5em .3em;
+  }
+  .row{
+    padding-right: 0;
+  }
 </style>
