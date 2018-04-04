@@ -10,13 +10,11 @@
      </div>
      <div class="row justify-content-md-center padding-tb-1">
        <label class="col-sm-3 text-left">验证码：</label>
-       <input type="text" class="col-sm-1 form-control inp" v-model="vercode">
-     </div>
-     <div class="row padding-tb-1">
-       <button @click="getCode()" @tap="getCode()" class="pull-right col-sm-4 btn btn-info inp">发送验证码{{count}}</button>
+       <input type="text" class="col-sm-6 form-control ver" v-model="vercode">
+       <button @click="getCode()" @tap="getCode()" class="pull-right btn btn-info ver">发送验证码{{count}}</button>
      </div>
      <div class="row justify-content-md-center padding-tb-1">
-       <button @click="res()" @tap="res()" class="col-sm-2 btn btn-info inp">提交</button>
+       <button @click="res()" @tap="res()" class="col-sm-5 btn btn-info inp">提交</button>
      </div>
    </div>
 </template>

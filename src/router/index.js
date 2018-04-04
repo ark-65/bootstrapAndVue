@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Register from '@/main/Register'
 import TackList from '@/main/TackList'
 import ContractInfo from '@/main/ContractInfo'
+import Authentication from '@/main/Authentication'
 Vue.use(Router)
 
 export default new Router({
@@ -30,6 +31,14 @@ export default new Router({
         title: '合同详情'
       },
       component: ContractInfo
+    },
+    {
+      path: '/Authentication',
+      name: 'Authentication',
+      meta: {
+        title: '实名认证'
+      },
+      component: Authentication
     }
   ]
 })
