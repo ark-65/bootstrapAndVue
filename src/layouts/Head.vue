@@ -2,7 +2,7 @@
   <b-container class="bv-example-row" v-wechat-title="$route.meta.title">
     <b-row class="justify-content-md-center">
       <b-col cols="12" md="auto">
-        <h3><img src="../assets/logo.png"/>{{msg}}</h3>
+        <h3><img src="../static/image/logo.png"/>{{msg}}</h3>
       </b-col>
     </b-row>
   </b-container>
