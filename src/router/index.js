@@ -4,6 +4,7 @@ import Register from '@/main/Register'
 import TackList from '@/main/TackList'
 import ContractInfo from '@/main/ContractInfo'
 import Authentication from '@/main/Authentication'
+import Realname from '@/main/RealName'
 Vue.use(Router)
 
 export default new Router({
@@ -39,6 +40,14 @@ export default new Router({
         title: '实名认证'
       },
       component: Authentication
+    },
+    {
+      path: '/Realname',
+      name: 'Realname',
+      meta: {
+        title: '实名认证'
+      },
+      component: Realname
     }
   ]
 })

@@ -1,128 +1,164 @@
 <template>
-<b-form @submit='onSubmit'>
-  <b-form-group id='nameGroup'
-                label='姓名'
-                label-for='name'>
-    <b-form-input id='name'
-                  type='text'
-                  v-model='form.name'
-                  :state='!$v.form.name.$invalid'
-                  aria-describedby='nameLiveFeedback'
-                  placeholder='请输入真实姓名' />
-    <b-form-invalid-feedback id='nameLiveFeedback'>
-      请输入您的真实姓名
-    </b-form-invalid-feedback>
-  </b-form-group>
-  <b-form-group id='bankNumberGroup'
-                label='银行卡号'
-                label-for='bankNumber'>
-    <b-form-input id='bankNumber'
-                  type='text'
-                  v-model='form.bankNumber'
-                  :state='!$v.form.bankNumber.$invalid'
-                  aria-describedby='bankNumberLiveFeedback'
-                  placeholder='请输入您的银行卡号' />
-    <b-form-invalid-feedback id='bankNumberLiveFeedback'>
-      请输入正确的银行卡号
-    </b-form-invalid-feedback>
-  </b-form-group>
-  <b-form-group id='idCardGroup'
-                label='身份证号'
-                label-for='idCard'>
-    <b-form-input id='idCard'
-                  type='text'
-                  v-model='form.idCard'
-                  :state='!$v.form.idCard.$invalid'
-                  aria-describedby='idCardFeedback'
-                  placeholder='请输入您的身份证号' />
-    <b-form-invalid-feedback id='idCardFeedback'>
-      请输入您的身份证号
-    </b-form-invalid-feedback>
-  </b-form-group>
-  <b-form-group id='telephoneGroup'
-                label='手机号'
-                label-for='telephone'>
-    <b-form-input id='telephone'
-                  type='text'
-                  v-model='form.telephone'
-                  :state='!$v.form.telephone.$invalid'
-                  aria-describedby='telephoneFeedback'
-                  placeholder='请输入您的手机号' />
-    <b-form-invalid-feedback id='telephoneFeedback'>
-      确保和对应银行卡预留手机号一致
-    </b-form-invalid-feedback>
-  </b-form-group>
-  <b-form-group id='exampleInputGroup1'
-                label='验证码'
-                label-for='exampleInput1'>
-    <b-form-input id='exampleInput1'
-                  type='text'
-                  v-model='form.name'
-                  :state='!$v.form.name.$invalid'
-                  aria-describedby='input1LiveFeedback'
-                  placeholder='请输入验证码' />
-    <b-form-invalid-feedback id='input1LiveFeedback'>
-      输入验证码
-    </b-form-invalid-feedback>
-  </b-form-group>
-  <b-button type='submit'
-            variant='primary'
-            :disabled='$v.form.$invalid'>
-    提交
-  </b-button>
-</b-form>
+  <div class="container">
+    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+      <b-form-group id="nameGroup"
+                    prepend="Username"
+                    label="请填写您的真实信息："
+                    label-for="nameInput"
+                    description="我们永远不会和其他人透露您的真实信息.">
+        <b-input-group prepend="真实姓名">
+        <b-form-input id="nameInput"
+                      type="text"
+                      v-model="form.name"
+                      :state="nameState"
+                      required
+                      placeholder="请输入您的真实姓名">
+        </b-form-input>
+        </b-input-group>
+      </b-form-group>
+      <b-form-group id="cardTypeGroup"
+                    label-for="cardTypeInput">
+        <b-form-select id="cardTypeInput"
+                       :options="cardType"
+                       required
+                       v-model="form.idCardType">
+        </b-form-select>
+      </b-form-group>
+      <b-form-group id="idCardGroup"
+                    label-for="idCardInput">
+        <b-input-group prepend="证件号码">
+        <b-form-input id="idCardInput"
+                      type="number"
+                      v-model="form.idCard"
+                      :state="idCardState"
+                      required
+                      placeholder="请输入证件号码">
+        </b-form-input>
+        </b-input-group>
+      </b-form-group>
+      <b-form-group id="bankNumberGroup"
+                    label-for="bankNumberInput">
+        <b-input-group prepend="银行卡号">
+        <b-form-input id="bankNumberInput"
+                      type="number"
+                      v-model="form.bankNumber"
+                      :state="bankState"
+                      required
+                      placeholder="请输入银行卡号">
+        </b-form-input>
+        </b-input-group>
+      </b-form-group>
+      <b-form-group id="phoneGroup"
+                    label-for="phoneInput">
+        <b-input-group prepend="手机号码">
+        <b-form-input id="phoneInput"
+                      type="number"
+                      v-model="form.phone"
+                      :state="telephoneState"
+                      required
+                      placeholder="确保手机号与银行预留手机一致">
+        </b-form-input>
+        </b-input-group>
+      </b-form-group>
+      <b-form-group>
+        <b-input-group>
+          <b-form-input type="number" min="0.00" required></b-form-input>
+          <b-input-group-append>
+            <b-btn variant="info" @click="getCode" @tag="getCode">{{message}}{{count}}</b-btn>
+          </b-input-group-append>
+        </b-input-group>
+      </b-form-group>
+      <b-button type="submit" variant="primary">提交</b-button>
+      <b-button type="reset" variant="danger">重置</b-button>
+    </b-form>
+  </div>
 </template>
 
-<script scope>
-import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
+<script>
 export default {
-  name: 'myForm',
-  data () {
-    return {
-      form: {}
+  name: 'Authentication',
+  computed: {
+    nameState () {
+      return this.form.name.length > 1
+    },
+    bankState () {
+      return this.form.bankNumber.length === 19
+    },
+    idCardState () {
+      return this.form.idCard.length === 15 || this.form.idCard.length === 18
+    },
+    telephoneState () {
+      return this.phoneReg.test(this.form.phone)
     }
   },
-  validations: {
-    form: {
-      name: {
-        required,
-        minLength: minLength(2)
+  data () {
+    return {
+      form: {
+        idCard: '',
+        name: '',
+        phone: '',
+        bankNumber: '',
+        idCardType: null
       },
-      bankNumber: {
-        required,
-        minLength: minLength(19)
-      },
-      idCard: {
-        required,
-        maxLength: maxLength(18),
-        minLength: minLength(15)
-      },
-      telephone: {
-        required,
-        minLength: minLength(11),
-        isUnique (value) {
-          const phoneRegex = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[013678])|(18[0,5-9]))\\d{8}$/
-          if (phoneRegex.test(value)) {
-            return false
-          }
-        }
-      }
+      timer: null,
+      code: '',
+      sended: false,
+      count: '',
+      message: '发送验证码',
+      phoneReg: /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[013678])|(18[0,5-9]))\d{8}$/,
+      cardType: [
+        { text: '请选择证件类型', value: null },
+        '身份证', '军官证'
+      ],
+      show: true
     }
   },
   methods: {
-    onSubmit () {
-      // this.$http.post('http://localhost:3000/getjson/subInfo', {
-      //   'name': this.name,
-      //   'bankNumber': this.bankNumber,
-      //   'idCard': this.idCard,
-      //   'telephone': this.telephone,
-      //   'code': this.code
-      // }).then((res) => {
-      //   this.$alert(res)
-      // }).catch((err) => {
-      //   this.$alert(err)
-      // })
+    onSubmit (evt) {
+      evt.preventDefault()
+      alert(JSON.stringify(this.form))
+    },
+    onReset (evt) {
+      evt.preventDefault()
+      /* Reset our form values */
+      this.form.name = ''
+      this.form.idCard = ''
+      this.form.bankNumber = ''
+      this.form.phone = ''
+      this.form.idCardType = null
+      /* Trick to reset/clear native browser form validation state */
+      this.show = false
+      this.$nextTick(() => { this.show = true })
+    },
+    getCode () {
+      const TIME_COUNT = 60
+      if (!this.sended) {
+        if (this.phoneReg.test(this.form.phone)) {
+          this.sended = true
+          this.$alert('已发送验证码')
+          this.message = '已发送验证码'
+          // this.$http.get
+          if (!this.timer) {
+            this.count = TIME_COUNT
+            this.timer = setInterval(() => {
+              if (this.count > 0 && this.count <= TIME_COUNT) {
+                this.count--
+              } else {
+                this.sended = false
+                clearInterval(this.teimer)
+                this.timer = null
+                this.count = ''
+                this.message = '发送验证码'
+              }
+            }, 1000)
+          }
+        } else {
+          this.$alert('请输入正确的手机号')
+        }
+      } else {
+        this.$alert('验证码已发送，' + this.count + '秒以后可再次发送')
+      }
     }
   }
 }

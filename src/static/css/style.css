@@ -10,4 +10,7 @@
 @media (max-width: 767.98px) {
   .inp{width:90% !important;margin-left: 1em}
   .ver{width:43% !important;margin-left: 1em;margin-bottom: 2em;}
+  .row{width:100%;margin:0 !important;}
+  .width-30{width:30%}
+  .width-85{width:80%;display:inline-block !important;}
 }
